@@ -19,6 +19,7 @@ target/
 *.iws
 *.iml
 *.ipr
+.env
 
 
 ### NetBeans ###
@@ -33,6 +34,8 @@ build/
 
 ### VS Code ###
 .vscode/
+.env
+
 
 
 
