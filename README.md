@@ -2,6 +2,8 @@
 
 A Spring Boot application that generates QR codes from text input and stores them on AWS S3. Built with a clean architecture using the ports and adapters pattern.
 
+https://isabelxis.github.io/qrcode_generator/
+
 ## Features
 
 - **Generate QR Codes**: Create QR codes from any text input
