@@ -4,6 +4,8 @@ A Spring Boot application that generates QR codes from text input and stores the
 
 https://isabelxis.github.io/qrcode_generator/
 
+**README Frontend**: https://github.com/isabelxis/qrcode_generator/blob/main/frontend/README.md#frontend--qr-code-generator
+
 ## Features
 
 - **Generate QR Codes**: Create QR codes from any text input
