@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Gerador de QR Code</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <section class="bg-white rounded-2xl shadow-xl p-8">
+        <header class="flex items-center justify-center gap-3 mb-8">
+          <span class="qr-icon w-8 h-8 text-purple-600" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="6" height="6" rx="1.3" stroke="currentColor" stroke-width="2"></rect>
+              <rect x="15" y="3" width="6" height="6" rx="1.3" stroke="currentColor" stroke-width="2"></rect>
+              <rect x="3" y="15" width="6" height="6" rx="1.3" stroke="currentColor" stroke-width="2"></rect>
+              <rect x="16" y="16" width="2.5" height="2.5" rx="0.5" fill="currentColor"></rect>
+              <rect x="20" y="20" width="1.2" height="1.2" rx="0.2" fill="currentColor"></rect>
+              <rect x="12.2" y="12.2" width="2.8" height="2.8" rx="0.6" fill="currentColor"></rect>
+            </svg>
+          </span>
+          <h1 class="text-3xl text-gray-800">Gerador de QR Code</h1>
+        </header>
+
+        <form id="qrForm" class="space-y-4">
+          <div>
+            <label for="text" class="block text-sm text-gray-600 mb-2">Digite o texto ou URL</label>
+            <textarea
+              id="text"
+              placeholder="https://exemplo.com ou qualquer texto..."
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors resize-none"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            id="btn"
+            type="submit"
+            class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+          >
+            Gerar QR Code
+          </button>
+        </form>
+
+        <section id="result" class="mt-8 space-y-4" aria-live="polite"></section>
+      </section>
+
+      <p class="text-center text-sm text-gray-600 mt-6">
+        Digite qualquer texto, URL ou informacao para gerar seu QR Code
+      </p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
