@@ -4,14 +4,27 @@ const result = document.getElementById('result');
 const submitBtn = document.getElementById('btn');
 
 function getApiCandidates() {
-  const host = window.location.hostname || 'localhost';
+  /*const host = window.location.hostname || 'localhost';
   const candidates = [
     `http://${host}:8080/qrcode`,
     'http://localhost:8080/qrcode',
     'http://127.0.0.1:8080/qrcode'
   ];
 
-  return [...new Set(candidates)];
+  return [...new Set(candidates)];*/
+
+  const RENDER_URL = 'https://qrcode-generator-wimn.onrender.com/qrcode';
+
+  // Se estiver rodando no GitHub Pages (produção), usa o Render
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return [RENDER_URL];
+  }
+
+  // Se estiver rodando localmente, usa o localhost
+  return [
+    'http://localhost:8080/qrcode',
+    'http://127.0.0.1:8080/qrcode'
+  ];
 }
 
 form.addEventListener('submit', async (ev) => {
