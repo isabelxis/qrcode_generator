@@ -44,6 +44,7 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
                 || origin.startsWith("http://127.0.0.1:")
                 || origin.startsWith("http://192.168.")
                 || origin.startsWith("http://10.")
-                || origin.startsWith("http://172.");
+                || origin.startsWith("http://172.")
+                || origin.equals("https://isabelxis.github.io");
     }
 }
