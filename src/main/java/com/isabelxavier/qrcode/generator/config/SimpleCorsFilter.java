@@ -26,14 +26,15 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
         if (origin != null && isAllowedOrigin(origin)) {
             response.setHeader("Access-Control-Allow-Origin", origin);
             response.setHeader("Vary", "Origin");
-            response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
             response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
             response.setHeader("Access-Control-Max-Age", "3600");
-        }
 
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            return;
+            // ✅ Responde o preflight DEPOIS de setar todos os headers
+            if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                return;
+            }
         }
 
         filterChain.doFilter(request, response);
@@ -45,6 +46,6 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
                 || origin.startsWith("http://192.168.")
                 || origin.startsWith("http://10.")
                 || origin.startsWith("http://172.")
-                || origin.equals("https://isabelxis.github.io");
+                || origin.equals("https://isabelxis.github.io"); // ✅ GitHub Pages
     }
 }
