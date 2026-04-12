@@ -1,69 +1,69 @@
-# QR Code Generator
+# Gerador de QR Code
 
-A Spring Boot application that generates QR codes from text input and stores them on AWS S3. Built with a clean architecture using the ports and adapters pattern.
+Uma aplicação Spring Boot que gera QR codes a partir de texto e os armazena no AWS S3. Construída com arquitetura limpa utilizando o padrão ports and adapters.
 
 https://isabelxis.github.io/qrcode_generator/
 
 **README Frontend**: https://github.com/isabelxis/qrcode_generator/blob/main/frontend/README.md#frontend--qr-code-generator
 
-## Features
+## Funcionalidades
 
-- **Generate QR Codes**: Create QR codes from any text input
-- **Cloud Storage**: Automatically upload generated QR codes to AWS S3
-- **RESTful API**: Simple HTTP endpoint for QR code generation
-- **UUID-based Naming**: Unique file naming for all generated QR codes
-- **Containerized**: Docker support for easy deployment
+- **Geração de QR Codes**: Crie QR codes a partir de qualquer texto
+- **Armazenamento em Nuvem**: Upload automático dos QR codes gerados para o AWS S3
+- **API RESTful**: Endpoint HTTP simples para geração de QR codes
+- **Nomenclatura por UUID**: Nomes únicos para todos os arquivos gerados
+- **Conteinerizado**: Suporte a Docker para facilitar o deploy
 
-## Tech Stack
+## Tecnologias
 
-- **Java 17**: Modern Java runtime
-- **Spring Boot 4.0.0**: Framework for building production-ready applications
-- **Google ZXing 3.5.2**: QR code generation library
-- **AWS SDK 2.24.12**: AWS S3 integration
-- **Maven**: Build and dependency management
-- **Docker**: Containerization
+- **Java 17**: Runtime moderno do Java
+- **Spring Boot 4.0.0**: Framework para aplicações prontas para produção
+- **Google ZXing 3.5.2**: Biblioteca de geração de QR codes
+- **AWS SDK 2.24.12**: Integração com AWS S3
+- **Maven**: Gerenciamento de build e dependências
+- **Docker**: Conteinerização
 
-## Prerequisites
+## Pré-requisitos
 
-- Java 17 or higher
-- Maven 3.6 or higher
-- AWS Account with S3 bucket access
-- AWS credentials configured or provided via environment variables
+- Java 17 ou superior
+- Maven 3.6 ou superior
+- Conta AWS com acesso a um bucket S3
+- Credenciais AWS configuradas ou fornecidas via variáveis de ambiente
 
-## Installation
+## Instalação
 
-1. **Clone the repository**
+1. **Clone o repositório**
    ```bash
-   git clone <repository-url>
+   git clone <url-do-repositorio>
    cd qrcode_generator
    ```
 
-2. **Build the project**
+2. **Build do projeto**
    ```bash
    mvn clean package
    ```
 
-3. **Run the application**
+3. **Execute a aplicação**
    ```bash
    java -jar target/qrcode.generator-0.0.1-SNAPSHOT.jar
    ```
 
-## Configuration
+## Configuração
 
-### Environment Variables
+### Variáveis de Ambiente
 
-Configure the following environment variables before running the application:
+Configure as seguintes variáveis de ambiente antes de executar a aplicação:
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `AWS_REGION` | AWS region for S3 bucket | `us-east-2` |
-| `AWS_BUCKET_NAME` | S3 bucket name | `my-qrcode-bucket` |
-| `AWS_ACCESS_KEY_ID` | AWS access key (if not using IAM roles) | - |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key (if not using IAM roles) | - |
+| Variável | Descrição | Exemplo |
+|----------|-----------|---------|
+| `AWS_REGION` | Região AWS do bucket S3 | `us-east-2` |
+| `AWS_BUCKET_NAME` | Nome do bucket S3 | `my-qrcode-bucket` |
+| `AWS_ACCESS_KEY_ID` | Chave de acesso AWS (se não usar IAM roles) | - |
+| `AWS_SECRET_ACCESS_KEY` | Chave secreta AWS (se não usar IAM roles) | - |
 
 ### application.properties
 
-The application is configured via `src/main/resources/application.properties`:
+A aplicação é configurada via `src/main/resources/application.properties`:
 
 ```properties
 spring.application.name=qrcode.generator
@@ -71,17 +71,17 @@ aws.s3.region=${AWS_REGION}
 aws.s3.bucket-name=${AWS_BUCKET_NAME}
 ```
 
-## Usage
+## Uso
 
-### API Endpoint
+### Endpoint da API
 
-**Generate QR Code**
+**Gerar QR Code**
 
 - **URL**: `POST /qrcode`
 - **Content-Type**: `application/json`
-- **Port**: `8080` (default)
+- **Porta**: `8080` (padrão)
 
-**Request Example**
+**Exemplo de Requisição**
 
 ```bash
 curl -X POST http://localhost:8080/qrcode \
@@ -89,7 +89,7 @@ curl -X POST http://localhost:8080/qrcode \
   -d '{"text":"https://example.com"}'
 ```
 
-**Request Body**
+**Corpo da Requisição**
 
 ```json
 {
@@ -97,7 +97,7 @@ curl -X POST http://localhost:8080/qrcode \
 }
 ```
 
-**Response Example**
+**Exemplo de Resposta**
 
 ```json
 {
@@ -105,74 +105,74 @@ curl -X POST http://localhost:8080/qrcode \
 }
 ```
 
-**Success Response**
-- **Status Code**: `200 OK`
-- **Body**: JSON object containing the S3 URL of the generated QR code
+**Resposta de Sucesso**
+- **Código de Status**: `200 OK`
+- **Corpo**: Objeto JSON contendo a URL do QR code no S3
 
-**Error Response**
-- **Status Code**: `500 Internal Server Error`
-- When QR code generation or upload fails
+**Resposta de Erro**
+- **Código de Status**: `500 Internal Server Error`
+- Quando a geração ou upload do QR code falha
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 qrcode_generator/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/isabelxavier/qrcode/generator/
-│   │   │   ├── Application.java                 # Spring Boot entry point
+│   │   │   ├── Application.java                 # Ponto de entrada Spring Boot
 │   │   │   ├── controller/
-│   │   │   │   └── QrCodeController.java        # REST API endpoint
+│   │   │   │   └── QrCodeController.java        # Endpoint da API REST
 │   │   │   ├── service/
-│   │   │   │   └── QrCodeGeneratorService.java  # Core business logic
+│   │   │   │   └── QrCodeGeneratorService.java  # Lógica de negócio principal
 │   │   │   ├── dto/
-│   │   │   │   ├── QrCodeGenerateRequest.java   # Request DTO
-│   │   │   │   └── QrCodeGenerateResponse.java  # Response DTO
+│   │   │   │   ├── QrCodeGenerateRequest.java   # DTO de requisição
+│   │   │   │   └── QrCodeGenerateResponse.java  # DTO de resposta
 │   │   │   ├── ports/
-│   │   │   │   └── StoragePort.java             # Storage abstraction
+│   │   │   │   └── StoragePort.java             # Abstração de armazenamento
 │   │   │   └── infrastructure/
-│   │   │       └── S3StorageAdapter.java        # AWS S3 implementation
+│   │   │       └── S3StorageAdapter.java        # Implementação AWS S3
 │   │   └── resources/
-│   │       └── application.properties           # Configuration
+│   │       └── application.properties           # Configuração
 │   └── test/
-│       └── java/...                             # Tests
-├── Dockerfile                                  # Docker configuration
-├── pom.xml                                     # Maven configuration
-└── README.md                                   # This file
+│       └── java/...                             # Testes
+├── Dockerfile                                  # Configuração Docker
+├── pom.xml                                     # Configuração Maven
+└── README.md                                   # Este arquivo
 ```
 
-## Architecture
+## Arquitetura
 
-This project follows a **Clean Architecture** pattern with clear separation of concerns:
+Este projeto segue o padrão de **Arquitetura Limpa** com clara separação de responsabilidades:
 
-- **Controller Layer**: Handles HTTP requests and responses
-- **Service Layer**: Contains business logic for QR code generation
-- **Port (Interface)**: Defines the storage contract (`StoragePort`)
-- **Adapter (Implementation)**: Implements storage using AWS S3 (`S3StorageAdapter`)
-- **DTOs**: Data transfer objects for request/response handling
+- **Camada Controller**: Trata requisições e respostas HTTP
+- **Camada Service**: Contém a lógica de negócio para geração de QR codes
+- **Port (Interface)**: Define o contrato de armazenamento (`StoragePort`)
+- **Adapter (Implementação)**: Implementa o armazenamento usando AWS S3 (`S3StorageAdapter`)
+- **DTOs**: Objetos de transferência de dados para requisições e respostas
 
-### Flow Diagram
+### Fluxo da Aplicação
 
 ```
-Request → Controller → Service → Port → Adapter (S3) → AWS S3
-                          ↓
-                    QR Code Generation
-                          ↓
-Response ← QrCodeGenerateResponse ← S3 URL
+Requisição → Controller → Service → Port → Adapter (S3) → AWS S3
+                              ↓
+                     Geração do QR Code
+                              ↓
+Resposta ← QrCodeGenerateResponse ← URL do S3
 ```
 
-## Docker Setup
+## Configuração Docker
 
-### Build Docker Image
+### Build da Imagem Docker
 
 ```bash
 docker build \
-  --build-arg AWS_ACCESS_KEY_ID=<your-access-key> \
-  --build-arg AWS_SECRET_ACCESS_KEY=<your-secret-key> \
+  --build-arg AWS_ACCESS_KEY_ID=<sua-chave-de-acesso> \
+  --build-arg AWS_SECRET_ACCESS_KEY=<sua-chave-secreta> \
   -t qrcode-generator:latest .
 ```
 
-### Run Docker Container
+### Executar o Container Docker
 
 ```bash
 docker run -e AWS_REGION=us-east-2 \
@@ -181,9 +181,9 @@ docker run -e AWS_REGION=us-east-2 \
            qrcode-generator:latest
 ```
 
-### Docker Compose (Optional)
+### Docker Compose (Opcional)
 
-Create a `docker-compose.yml` file:
+Crie um arquivo `docker-compose.yml`:
 
 ```yaml
 version: '3.8'
@@ -199,12 +199,12 @@ services:
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 ```
 
-Run with:
+Execute com:
 ```bash
 docker-compose up
 ```
 
-## Development
+## Desenvolvimento
 
 ### Build
 
@@ -212,71 +212,71 @@ docker-compose up
 mvn clean package
 ```
 
-### Run Tests
+### Executar Testes
 
 ```bash
 mvn test
 ```
 
-### Skip Tests During Build
+### Pular Testes Durante o Build
 
 ```bash
 mvn clean package -DskipTests
 ```
 
-## Dependencies
+## Dependências
 
-Key dependencies included in the project:
+Principais dependências do projeto:
 
-- `spring-boot-starter-webmvc`: Web framework
-- `spring-boot-devtools`: Development tools
-- `spring-boot-starter-webmvc-test`: Testing framework
-- `com.google.zxing:core`: QR code generation
-- `com.google.zxing:javase`: Java SE support for ZXing
-- `software.amazon.awssdk:s3`: AWS S3 client
+- `spring-boot-starter-webmvc`: Framework web
+- `spring-boot-devtools`: Ferramentas de desenvolvimento
+- `spring-boot-starter-webmvc-test`: Framework de testes
+- `com.google.zxing:core`: Geração de QR codes
+- `com.google.zxing:javase`: Suporte Java SE para ZXing
+- `software.amazon.awssdk:s3`: Cliente AWS S3
 
-## Troubleshooting
+## Solução de Problemas
 
-### AWS Connection Issues
+### Problemas de Conexão com a AWS
 
-1. **Ensure AWS credentials are properly configured**
-   - Export environment variables or use AWS CLI configuration
-   - Check IAM permissions for S3 bucket access
+1. **Verifique se as credenciais AWS estão configuradas corretamente**
+   - Exporte as variáveis de ambiente ou use a configuração do AWS CLI
+   - Verifique as permissões IAM para acesso ao bucket S3
 
-2. **Verify bucket exists and is accessible**
+2. **Verifique se o bucket existe e está acessível**
    ```bash
-   aws s3 ls s3://your-bucket-name
+   aws s3 ls s3://nome-do-seu-bucket
    ```
 
-3. **Check AWS region matches bucket location**
+3. **Confirme se a região AWS corresponde à localização do bucket**
 
-### Build Issues
+### Problemas de Build
 
-1. **Java version mismatch**
-   - Ensure you're using Java 17+
-   - Check `java -version`
+1. **Versão do Java incompatível**
+   - Certifique-se de usar Java 17+
+   - Verifique com `java -version`
 
-2. **Maven issues**
-   - Clear local repository: `mvn clean`
-   - Force update dependencies: `mvn -U clean install`
+2. **Problemas com Maven**
+   - Limpe o repositório local: `mvn clean`
+   - Force a atualização das dependências: `mvn -U clean install`
 
-## Future Enhancements
+## Melhorias Futuras
 
-- Different QR code sizes and error correction levels
-- Batch QR code generation
-- QR code download endpoint
-- Statistics and analytics
-- Custom branding options
-- Rate limiting and authentication
+- Diferentes tamanhos de QR code e níveis de correção de erros
+- Geração de QR codes em lote
+- Endpoint para download de QR codes
+- Estatísticas e analytics
+- Opções de personalização visual
+- Rate limiting e autenticação
 
-## License
+## Licença
 
-This project is provided as-is for educational and commercial use.
+Este projeto é fornecido como está para uso educacional e comercial.
 
-## Author
+## Autora
 
 Isabel Xavier
 
-## Support
+## Suporte
 
-For issues or questions, please open an issue in the repository.
+Para dúvidas ou problemas, por favor abra uma issue no repositório.
